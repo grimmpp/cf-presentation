@@ -35,33 +35,31 @@
 				</section>
 				<section data-markdown>
 					<script type="text/template">
-					<h2 style="color: #2a76dd; text-decoration: underline;"> Agenda</h2>
+					## Agenda
 					
-					- BOSH Summary
-					   - Stemcells
 					- Cloud Foundry Overview
+						- Basics and Motivation
 						- Application Runtime Service
 						- Buildpacks
 						- Routing
 						- Service Integration
 					</script>
 				</section>
-				<section data-markdown>
-					<script type="text/template">
-					## BOSH Summary
-					
-					</script>
-				</section>
+				
 				<section data-markdown>
 					<script type="text/template">
 					## What is Cloud Foundry?
 					
 					- Open Source Platform as a Service
-					- application runtime service
+					- Is deployed and managed by BOSH
+					- Offers an application runtime service
 						- scalable, supports [12-factor-app](https://12factor.net/)-lifecycle
-					- supports multiple IaaS stacks
+					- Little effort for maintaining run of apps
+					- Manages service integration
+					- Supports multiple IaaS stacks
 					</script>
 				</section>
+				
 				<section data-markdown>
 					<script type="text/template">
 					## Managed Hosting Stack
@@ -74,46 +72,86 @@
 					## Cloud Foundry Setup
 					
 					<img style="border:0px; box-shadow: 0 0 0;" height="500px" src="images/deploymentOfCf.png" />
-				</script>
+					</script>
 				</section>
+				
 				<section data-markdown>
 					<script type="text/template">
-					## Orgs and Spaces
+					## Organization
 					
-					- Organizations are intended for projects / teams
-					- Spaces are intended for staging
-						- Spaces are isolated
-						- Applications are within the scope of one certain space
-						- Service Instances are within the scope of one certain space
+					<img style="border:0px; box-shadow: 0 0 0;" height="500px" src="images/CF-WebUI-Organization.png" />
 					</script>
 				</section>
 				<section data-markdown>
 					<script type="text/template">
-					## Application Runtime Service
+					## Space
 					
-					- 12-factor-app
-					
-					...
-				</script>
-				</section>
-				<section data-markdown>
-					<script type="text/template">
-					## Buildpacks
-					
-					- Buildpacks provide framework and runtime support for apps.
-					- Maintained and supported Buildpacks
-						- Java, Ruby, Node.js, Binary, Go, Php, Phyton, staticfile, DotNet-core
-					
-					</script>	
-				</section>
-				<section data-markdown>
-					<script type="text/template">
-					## Buildpacks
-					
-					<img style="border:0px; box-shadow: 0 0 0;" src="images/dropletBuild.png" />
-					<img style="border:0px; box-shadow: 0 0 0;" src="images/containerBuild.png" />
+					<img style="border:0px; box-shadow: 0 0 0;" height="500px" src="images/CF-WebUI-Space-1024x504.png" />
 					</script>
 				</section>
+				<section data-markdown>
+					<script type="text/template">
+					## Marketplace
+					
+					<img style="border:0px; box-shadow: 0 0 0;" height="500px" src="images/CF-Webui-Marketplace.png" />
+					</script>
+				</section>
+				<section data-markdown>
+					<script type="text/template">
+					## Application
+					
+					<img style="border:0px; box-shadow: 0 0 0;" height="500px" src="images/CF-WebUI-App-1024x769.png" />
+					</script>
+				</section>
+				
+				<section>
+					<section data-markdown>
+						## Application Runtime Service
+						
+						- Apps run as collection of containers in CF
+						- App lifeczcle is managed by CF
+							- https://12factor.net
+					</section>
+					<section data-markdown>
+						<script type="text/template">
+						## The Twelve-Factor App
+						
+						1. One functionality codebase
+						1. Define explicitely dependencies
+						1. Separate config
+						1. Use backing services (stateless app)
+						1. Separate build, release, run, and use stages
+						1. Processes (multi processing)
+						1. Port binding (Service offering)
+						1. Concurrency (Scaling)
+						1. Disposability (fast startup and graceful shutdown)
+						1. Dev/prod parity (keep all stages as similar)	
+						1. Logs (logs as event streams)
+						1. Admin processes Run 
+						</script>
+					</section>
+				</section>
+				
+				<section>
+					<section data-markdown>
+						<script type="text/template">
+						## Buildpacks
+						
+						- Buildpacks provide framework and runtime support for apps.
+						- [Maintained and supported Buildpacks](https://github.com/cloudfoundry-community/cf-docs-contrib/wiki/Buildpacks)
+							- Java, Ruby, Node.js, Binary, Go, Php, Phyton, staticfile, binary, DotNet-core
+						</script>	
+					</section>
+					<section data-markdown>
+						<script type="text/template">
+						## Buildpacks
+						
+						<img style="border:0px; box-shadow: 0 0 0;" src="images/dropletBuild.png" />
+						<img style="border:0px; box-shadow: 0 0 0;" src="images/containerBuild.png" />
+						</script>
+					</section>
+				</section>
+				
 				<section data-markdown>
 					<script type="text/template">
 					## Staging of Applications
@@ -121,21 +159,49 @@
 					<img style="border:0px; box-shadow: 0 0 0;" src="images/app_push_flow_diagram_diego.png" />
 					</script>
 				</section>
-				<section data-markdown>
-					<script type="text/template">
-					## Blue-Green-Deployment
-					
-					</script>
-				</section>
+				
 				<section data-markdown>
 					<script type="text/template">
 					## Routing
 					
 					- http(s) and tcp routing to applications
+					- Shared and private domains
+					- hostnames
+					- Route paths
 					
-					<img style="border:0px; box-shadow: 0 0 0;" src="images/routing.png" />
+					<img style="border:0px; box-shadow: 0 0 0;" src="images/routing_2.png" />
 					</script>
-				</section>	
+				</section>
+				
+				<section>
+					<section data-markdown>
+						<script type="text/template">
+						## Blue-Green-Deployment
+						
+						- Switching from old app version to new app version
+							1. Deploy new app version in parallel
+							1. Test new app version 
+							1. Attach existing route of old app to both apps
+							1. Remove route from old app after all request of old app where processed
+						</script>
+					</section>
+					<section>
+						<img style="border:0px; box-shadow: 0 0 0;" src="images/1_blue.png" />
+					</section>
+					<section>
+						<img style="border:0px; box-shadow: 0 0 0;" src="images/2_blue-green.png" />
+					</section>
+					<section>
+						<img style="border:0px; box-shadow: 0 0 0;" src="images/3_map.png" />
+					</section>
+					<section>
+						<img style="border:0px; box-shadow: 0 0 0;" src="images/4_unmap.png" />
+					</section>
+					<section>
+						<img style="border:0px; box-shadow: 0 0 0;" src="images/5_green.png" />
+					</section>
+				</section>
+					
 				<section data-markdown>
 					<script type="text/template">
 					## Service Integration
@@ -149,6 +215,17 @@
 				<section data-markdown>
 					<script type="text/template">
 					## Thank you for your attention!
+					
+					</script>
+				</section>
+				
+				<section data-markdown>
+					<script type="text/template">
+					## Sources
+					
+					- [Cloud Foundry Docs](https://docs.cloudfoundry.org/)
+					- [CF WebUI Screenshots](https://blog.zhaw.ch/icclab/announcing-cf-webui-an-open-source-web-interface-to-cloud-foundry/)
+					
 					
 					</script>
 				</section>
